@@ -1,0 +1,170 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR X11)
+/*
+ * Copyright 2019 George Hilliard <thirtythreeforty@gmail.com>
+ */
+
+/dts-v1/;
+#include "suniv-f1c100s.dtsi"
+
+#include <dt-bindings/gpio/gpio.h>
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/ {
+	model = "Curly Carrot Project";
+	compatible = "licheepi,licheepi-nano", "allwinner,suniv-f1c100s",
+		     "allwinner,suniv";
+	
+	aliases {
+		serial0 = &uart0;
+		spi0 = &spi0;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	reg_vcc3v3: vcc3v3 {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc3v3";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&led_pins>;
+
+		heartbeat {
+			label = "Heartbeat";
+			gpios = <&pio 4 3 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+			linux,default-trigger = "heartbeat";
+		};
+	};
+
+};
+
+
+
+
+
+&spi0 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&spi0_pins_a>;
+    status = "okay";
+    flash: w25q256@0 {
+        #address-cells = <1>;
+        #size-cells = <1>;
+        compatible = "winbond,w25q256", "jedec,spi-nor";
+        reg = <0>;
+        spi-max-frequency = <50000000>;
+        partitions {
+            compatible = "fixed-partitions";
+            #address-cells = <1>;
+            #size-cells = <1>;
+
+            partition@0 {
+                label = "u-boot";
+                reg = <0x000000 0x40000>;
+                //read-only;
+            };
+
+            partition@110000 {
+                label = "rootubi";
+                reg = <0x40000 0xFC0000>;
+                //read-only;
+            };
+        };
+    };
+};
+
+
+
+
+
+&spi1 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&spi1_pins_a>;
+    status = "okay";
+
+    panel@0 {
+        compatible = "sitronix,st7789v";
+        reg = <0>;
+	reset-gpios = <&pio 4 5 GPIO_ACTIVE_HIGH>;
+	dc-gpios = <&pio 4 4 GPIO_ACTIVE_HIGH>;
+        spi-max-frequency = <50000000>;
+	buswidth = <8>;
+	rotate = <90>;
+	//bgr;
+    };
+};
+
+
+
+&mmc0 {
+	vmmc-supply = <&reg_vcc3v3>;
+	bus-width = <4>;
+	broken-cd;
+	status = "okay";
+
+	esp8089: sdio_wifi@1 {
+		compatible = "esp,esp8089";
+		reg = <1>;
+		esp,crystal-26M-en = <2>;
+	};
+
+};
+
+
+
+
+&otg_sram {
+	status = "okay";
+};
+
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pe_pins>;
+	status = "okay";
+};
+
+&usb_otg {
+	dr_mode = "peripheral";
+	status = "okay";
+};
+
+&usbphy {
+	usb0_id_det-gpio = <&pio 4 2 GPIO_ACTIVE_HIGH>; /* PE2 */
+	status = "okay";
+};
+
+
+
+
+
+
+
+&pio {
+	led_pins: led-pins {
+		pins = "PE3";
+		function = "gpio_out";
+	};
+
+	//reset_gpios: reset-gpios {
+	//	pins = "PE5";
+	//	function = "gpio_out";
+	//};
+
+	//dc_gpios: dc-gpios {
+	//	pins = "PE4";
+	//	function = "gpio_out";
+	//};
+};
+
+
+
+
+
+
