@@ -30,21 +30,98 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 	};
+	
+	
+	
+	
+	
+	
+	gpio-keys {
+        compatible = "gpio-keys";
+        autorepeat;
 
-	leds {
-		compatible = "gpio-leds";
-		pinctrl-names = "default";
-		pinctrl-0 = <&led_pins>;
+        left-key {
+            label = "Left key";
+            gpios = <&pio 3 20 GPIO_ACTIVE_LOW>;
+            linux,code = <105>; /* KEY_LEFT */
+        };
+        
+        right-key {
+            label = "Right key";
+            gpios = <&pio 3 19 GPIO_ACTIVE_LOW>;
+            linux,code = <106>; /* KEY_RIGHT */
+        };
+        
+        up-key {
+            label = "Up key";
+            gpios = <&pio 3 21 GPIO_ACTIVE_LOW>;
+            linux,code = <103>; /* KEY_UP */
+        };
+        
+        down-key {
+            label = "Down key";
+            gpios = <&pio 3 18 GPIO_ACTIVE_LOW>;
+            linux,code = <108>; /* KEY_DOWN */
+        };
+        
+        
+        enter-key {
+            label = "Enter key";
+            gpios = <&pio 3 13 GPIO_ACTIVE_LOW>;
+            linux,code = <28>; /* KEY_ENTER */
+        };
+    
+        space-key {
+            label = "Space key";
+            gpios = <&pio 3 15 GPIO_ACTIVE_LOW>;
+            linux,code = <57>; /* KEY_SPACE */
+        };
+        
+        leftctrl-key {
+            label = "Left Ctrl key";
+            gpios = <&pio 3 16 GPIO_ACTIVE_LOW>;
+            linux,code = <29>; /* KEY_LEFTCTRL */
+        };
+        
+        esc-key {
+            label = "Esc key";
+            gpios = <&pio 3 14 GPIO_ACTIVE_LOW>;
+            linux,code = <1>; /* KEY_ESC */
+        };
+        
+        y-key {
+            label = "Y key";
+            gpios = <&pio 3 12 GPIO_ACTIVE_LOW>;
+            linux,code = <21>; /* KEY_Y */
+        };
+        
+    };
+	
+	
+	
+	
+	
 
-		heartbeat {
-			label = "Heartbeat";
-			gpios = <&pio 4 3 GPIO_ACTIVE_LOW>;
-			default-state = "on";
-			linux,default-trigger = "heartbeat";
-		};
-	};
+//	leds {
+//		compatible = "gpio-leds";
+//		pinctrl-names = "default";
+//		pinctrl-0 = <&led_pins>;
+//
+	//	heartbeat {
+	//		label = "Heartbeat";
+	//		gpios = <&pio 3 10 GPIO_ACTIVE_LOW>;
+	//		default-state = "on";
+	//		linux,default-trigger = "heartbeat";
+	//	};
+	//};
 
 };
+
+
+
+
+
+
 
 
 
@@ -92,11 +169,13 @@
     panel@0 {
         compatible = "sitronix,st7789v";
         reg = <0>;
-	reset-gpios = <&pio 4 5 GPIO_ACTIVE_HIGH>;
-	dc-gpios = <&pio 4 4 GPIO_ACTIVE_HIGH>;
+	reset-gpios = <&pio 4 3 GPIO_ACTIVE_HIGH>;
+	dc-gpios = <&pio 4 2 GPIO_ACTIVE_HIGH>;
         spi-max-frequency = <50000000>;
 	buswidth = <8>;
 	rotate = <90>;
+	txbuflen = <32768>;
+	fps=<10>;
 	//bgr;
     };
 };
@@ -108,13 +187,6 @@
 	bus-width = <4>;
 	broken-cd;
 	status = "okay";
-
-	esp8089: sdio_wifi@1 {
-		compatible = "esp,esp8089";
-		reg = <1>;
-		esp,crystal-26M-en = <2>;
-	};
-
 };
 
 
@@ -130,13 +202,25 @@
 	status = "okay";
 };
 
+
+
+&codec {
+	allwinner,audio-routing =
+		"Headphone", "HP",
+		"Headphone", "HPCOM",
+		"MIC", "Mic";
+	status = "okay";
+};
+
+
+
 &usb_otg {
 	dr_mode = "peripheral";
 	status = "okay";
 };
 
 &usbphy {
-	usb0_id_det-gpio = <&pio 4 2 GPIO_ACTIVE_HIGH>; /* PE2 */
+	usb0_id_det-gpio = <&pio 4 5 GPIO_ACTIVE_HIGH>; /* PE5 */
 	status = "okay";
 };
 
@@ -147,10 +231,10 @@
 
 
 &pio {
-	led_pins: led-pins {
-		pins = "PE3";
-		function = "gpio_out";
-	};
+	//led_pins: led-pins {
+	//	pins = "PD0";
+	//	function = "gpio_out";
+	//};
 
 	//reset_gpios: reset-gpios {
 	//	pins = "PE5";
