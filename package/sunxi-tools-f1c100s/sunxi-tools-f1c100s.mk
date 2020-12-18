@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-SUNXI_TOOLS_F1C100S_VERSION = 6dac68fbcaaefe61eb6cad78098416812d9d70fc
-SUNXI_TOOLS_F1C100S_SITE = $(call github,thirtythreeforty,sunxi-tools,$(SUNXI_TOOLS_F1C100S_VERSION))
+SUNXI_TOOLS_F1C100S_VERSION = 7054f715707587e8906089fdcdf7e2b52395cb6e
+SUNXI_TOOLS_F1C100S_SITE = $(call github,nybo,sunxi-tools,$(SUNXI_TOOLS_F1C100S_VERSION))
 SUNXI_TOOLS_F1C100S_LICENSE = GPL-2.0+
 SUNXI_TOOLS_F1C100S_LICENSE_FILES = LICENSE.md
 HOST_SUNXI_TOOLS_F1C100S_DEPENDENCIES = host-libusb host-pkgconf

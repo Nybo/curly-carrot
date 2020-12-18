@@ -2,10 +2,20 @@
 
 # Loading the modules needed by my app:
 #modprobe xxxxx
- 
+#modprobe -a r8723bs
+#ifconfig -a
+#fconfig wlan0 up
+#wpa_supplicant -i wlan0 -c /root/wpa_supplicant.conf -B
+#udhcpc -i wlan0
+
 # Launching my app:
 
+
+
+
+
+
 export SDL_NOMOUSE=1
-/usr/bin/chocolate-doom &          # <-- Don't forget the "&" otherwise other system stuff won't start until you leave your app !!!
+#/usr/bin/chocolate-doom &          # <-- Don't forget the "&" otherwise other system stuff won't start until you leave your app !!!
 
 exit 0
