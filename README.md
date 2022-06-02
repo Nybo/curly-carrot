@@ -20,7 +20,10 @@ setup sound with "ALSACTL init" & "ALSAMIXER" DAC @20 and DAC as Headphone sourc
 
 
 
-Doom executable is located in: /usr/bin/chocolate-doom
-Use "export SDL_NOMOUSE=1" before if no mouse is present
-chocolate-doom-setup is useful for setup
+Doom executable is located in: /usr/bin/chocolate-doom .
+
+Use "export SDL_NOMOUSE=1" before if no mouse is present.
+
+chocolate-doom-setup is useful for setup.
+
 
