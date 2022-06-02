@@ -3,10 +3,15 @@ Buildroot for Curly-Carrot Project
 
 BUILDING:
 git clone https://github.com/Nybo/curly-carrot.git
+
 cd curly-carrot
+
 git submodule update --init
+
 cd buildroot
+
 make BR2_EXTERNAL=$PWD/../ carrot_defconfig
+
 make
 
 
