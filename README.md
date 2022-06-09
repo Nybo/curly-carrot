@@ -1,6 +1,22 @@
 # curly-carrot
 Buildroot for Curly-Carrot Project
 
+
+
+CONFIGURING:
+
+Configure buildroot:  make menuconfig
+
+Configure linux: make linux-menuconfig
+
+
+
+
+
+
+
+
+
 BUILDING:
 git clone https://github.com/Nybo/curly-carrot.git
 
