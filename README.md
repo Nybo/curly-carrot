@@ -6,8 +6,12 @@ Buildroot for Curly-Carrot Project
 CONFIGURING:
 
 Configure buildroot:  make menuconfig
+Save buildroot configuration: make savedefconfig
+
 
 Configure linux: make linux-menuconfig
+Save linux configuration: make linux-savedefconfig
+                          make linux-update-defconfig
 
 
 
