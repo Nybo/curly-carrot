@@ -3,7 +3,7 @@ Buildroot for Curly-Carrot Project
 
 
 
-CONFIGURING:
+**CONFIGURING:**
 
 Configure buildroot:  make menuconfig
 Save buildroot configuration: make savedefconfig
@@ -21,7 +21,7 @@ Save linux configuration: make linux-savedefconfig
 
 
 
-BUILDING:
+**BUILDING:**
 git clone https://github.com/Nybo/curly-carrot.git
 
 cd curly-carrot
@@ -36,8 +36,9 @@ make
 
 
 
-PROGRAMMING TO FLASH:
-TBD
+**PROGRAMMING TO FLASH:**
+
+sudo ./sunxi-fel-upload.sh
 
 
 
@@ -45,7 +46,7 @@ TBD
 
 
 
-USING:
+**USING:**
 
 setup sound with "ALSACTL init" & "ALSAMIXER" DAC @20 and DAC as Headphone source
 
