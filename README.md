@@ -26,7 +26,8 @@ git clone https://github.com/Nybo/curly-carrot.git
 
 cd curly-carrot
 
-git submodule update --init
+git submodule init
+git submodule update
 
 cd buildroot
 
